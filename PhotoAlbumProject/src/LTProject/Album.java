@@ -3,10 +3,6 @@ package LTProject;
 /**
  * @author ryanhowe
  */
-
-
-
-
 public class Album {
 	
 	private int albumId;
@@ -91,7 +87,7 @@ public class Album {
 	/**
 	 * @param thumbNailUrl the thumbNailUrl to set
 	 */
-	public void setThumbnailUrl(String thumbNailUrl) {
+	public void setThumbnailUrl(String thumbnailUrl) {
 		this.thumbnailUrl = thumbnailUrl;
 	}
 	
