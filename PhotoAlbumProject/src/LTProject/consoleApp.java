@@ -132,16 +132,23 @@ public class consoleApp {
 		System.out.println("Which album would you like displayed?");
 		try (Scanner sc = new Scanner(System.in)) {
 			int albumNum = sc.nextInt();
-			System.out.println("> photo-album " + albumNum);
-			System.out.println();
-			for (int i = 0; i < list.size(); i++) {
-				if (list.get(i).getAlbumId() == albumNum) {
-					System.out.println("[" + list.get(i).getId() + "]" + list.get(i).getTitle());
-					System.out.println();
+			
+			if(albumNum < list.get(0).getAlbumId() || albumNum > list.get(list.size()-1).getAlbumId()){
+				System.out.println("That album ID does not exist");
+			}else {
+				System.out.println("> photo-album " + albumNum);
+				System.out.println();
+				for (int i = 0; i < list.size(); i++) {
+					if (list.get(i).getAlbumId() == albumNum) {
+						System.out.println("[" + list.get(i).getId() + "]" + list.get(i).getTitle());
+						System.out.println();
+
+					}
 
 				}
-
+				
 			}
+			
 		}
 
 	}
