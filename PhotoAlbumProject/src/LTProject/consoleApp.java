@@ -41,7 +41,9 @@ public class consoleApp {
 			e.printStackTrace();
 
 		} catch (IOException e) {// Some sort of bad input or output occured
-			e.printStackTrace();
+			System.out.println("The input used was not the right format. Please use a number between 1-100");
+		}catch(IndexOutOfBoundsException e) {
+			System.out.println("The Id you entered does not exist, please restart");
 		}
 
 	}
