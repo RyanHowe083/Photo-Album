@@ -4,6 +4,8 @@
 package LTProject;
 
 import static org.junit.Assert.*;
+import static org.junit.Assume.assumeFalse;
+import static org.junit.Assume.assumeNoException;
 
 import org.junit.Test;
 
@@ -29,7 +31,7 @@ public class albumTest {
 	public void testSetAlbumId() {
 		Album a = new Album(1,2,null,null, null);
 		a.setAlbumId(20);
-		assertEquals(20, a.getAlbumId());
+		assertNotEquals(2, a.getAlbumId());
 	}
 
 	/**
@@ -39,6 +41,7 @@ public class albumTest {
 	public void testGetId() {
 		Album a = new Album(1,2,null,null, null);
 		assertEquals(2, a.getId());
+		
 	}
 
 	/**
@@ -106,6 +109,22 @@ public class albumTest {
 		Album a = new Album();
 		a.setThumbnailUrl("testing thumb");
 		assertEquals("testing thumb", a.getThumbnailUrl());
+	}
+	
+	public void testEmptyConstructor() {
+		Album a = new Album();
+		assertNull(a.getAlbumId());
+		assertNull(a.getId());
+		assertNull(a.getTitle());
+		assertNull(a.getUrl());
+		assertNull(a.getThumbnailUrl());
+	}
+	
+	public void testBadSetter() {
+		Album a = new Album();
+		a.setAlbumId(2);
+		assumeFalse(a.getAlbumId() != 2);
+		
 	}
 
 }

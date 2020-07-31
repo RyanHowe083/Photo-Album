@@ -24,53 +24,52 @@ public class consoleApp {
 	private static HttpURLConnection connection;
 
 	public static void main(String[] args) {
-		// Few variables for getting the info from the url
-		BufferedReader reader;
-		StringBuffer responseContent = new StringBuffer();
-		String line;
-
 		// Attempt to read the URL and display the specified information to the user
 		try {
-			// Set the URL for the JSON placeholder
-			URL url = new URL("https://jsonplaceholder.typicode.com/photos");
+			// Get the Id from the user and set up the url connection
+			System.out.println("Which album would you like displayed? (Album ID 1-100 are valid)");
+			Scanner sc = new Scanner(System.in);
+			
+			int albumNum = sc.nextInt();
+			sc.close();
+			URL url = new URL("https://jsonplaceholder.typicode.com/photos?albumId=" + albumNum);
 			connection = (HttpURLConnection) url.openConnection();
-
-			// Get request
-			connection.setRequestMethod("GET");
-			connection.setConnectTimeout(5000);
-			connection.setReadTimeout(5000);
-
-			// User a reader to append the information to the responseConent
-			int status = connection.getResponseCode();
-			if (status > 299) {
-				reader = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
-
-				while ((line = reader.readLine()) != null) {
-					responseContent.append(line);
-
-				}
-				reader.close();
-
-			} else {
-				reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-
-				while ((line = reader.readLine()) != null) {
-					responseContent.append(line);
-				}
-				reader.close();
-
-			}
-
 			// Parse the list and display the content to the user
-			display(createAlbumList(responseContent));
+			display(createAlbumList(getRequest()));
 
-		} catch (MalformedURLException e) {
+		} catch (MalformedURLException e) {// Bad url was used
 			e.printStackTrace();
 
-		} catch (IOException e) {
+		} catch (IOException e) {// Some sort of bad input or output occured
 			e.printStackTrace();
 		}
 
+	}
+
+	private static StringBuffer getRequest() throws IOException {
+		BufferedReader reader;
+		StringBuffer responseContent = new StringBuffer();
+		String line;
+		// Get request
+		connection.setRequestMethod("GET");
+		connection.setConnectTimeout(5000);
+		connection.setReadTimeout(5000);
+
+		// User a reader to append the information to the responseConent
+		int status = connection.getResponseCode();
+		if (status > 299) {
+			reader = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
+
+		} else {
+			reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+		}
+		while ((line = reader.readLine()) != null) {
+			responseContent.append(line);
+
+		}
+		reader.close();
+		return responseContent;
 	}
 
 	/**
@@ -129,26 +128,11 @@ public class consoleApp {
 	 * @param list
 	 */
 	private static void display(ArrayList<Album> list) {
-		System.out.println("Which album would you like displayed?");
-		try (Scanner sc = new Scanner(System.in)) {
-			int albumNum = sc.nextInt();
-			
-			if(albumNum < list.get(0).getAlbumId() || albumNum > list.get(list.size()-1).getAlbumId()){
-				System.out.println("That album ID does not exist");
-			}else {
-				System.out.println("> photo-album " + albumNum);
-				System.out.println();
-				for (int i = 0; i < list.size(); i++) {
-					if (list.get(i).getAlbumId() == albumNum) {
-						System.out.println("[" + list.get(i).getId() + "]" + list.get(i).getTitle());
-						System.out.println();
-
-					}
-
-				}
-				
-			}
-			
+		System.out.println("> photo-album " + list.get(0).getAlbumId());
+		System.out.println();
+		for (int i = 0; i < list.size(); i++) {
+			System.out.println("[" + list.get(i).getId() + "]" + list.get(i).getTitle());
+			System.out.println();
 		}
 
 	}
