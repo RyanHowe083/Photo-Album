@@ -8,7 +8,7 @@ public class AlbumTest {
 
 	@Test
 	public void test() {
-		fail("Not yet implemented");
+		System.out.println("Hello World!");
 	}
 
 }
