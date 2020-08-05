@@ -82,7 +82,8 @@ public class Album {
 	}
 
 	/**
-	 * @param thumbNailUrl the thumbNailUrl to set
+	 * 
+	 * @param thumbnailUrl the thumbnailUrl to set
 	 */
 	public void setThumbnailUrl(String thumbnailUrl) {
 		this.thumbnailUrl = thumbnailUrl;
