@@ -8,20 +8,23 @@ import java.util.Scanner;
 public class Run {
 
 	public static void main(String[] args) {
-		// Attempt to read the URL and display the specified information to the user
+		//App to set up for the user
 		ConsoleApp app = new ConsoleApp();
+		
 		try {
 			// Get the Id from the user and set up the url connection
 			System.out.println("Which album would you like displayed? (Album ID 1-100 are valid)");
 			Scanner sc = new Scanner(System.in);
-
 			int albumNum = sc.nextInt();
 			sc.close();
+			
+			//Set up the URL and the connection
 			app.setUrl(albumNum);
 			app.setConnection((HttpURLConnection) app.getUrl().openConnection());
 			app.configConnection();
+			
+			//Create the buffer and display the list
 			app.createBuffer();
-			// Parse the list and display the content to the user
 			app.display(app.createAlbumList());
 
 		} catch (MalformedURLException e) {// Bad url was used

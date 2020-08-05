@@ -28,7 +28,45 @@ public class ConsoleApp {
 	}
 
 	/**
-	 * This method
+	 * This method gets the connection
+	 * 
+	 * @return connection
+	 */
+	public URLConnection getConnection() {
+		// TODO Auto-generated method stub
+		return connection;
+	}
+
+	/**
+	 * This method returns the url
+	 * 
+	 * @return the url to return
+	 */
+	public URL getUrl() {
+		return url;
+	}
+
+	/**
+	 * This method returns the reader
+	 * 
+	 * @return the reader
+	 */
+	public BufferedReader getReader() {
+		return reader;
+	}
+
+	/**
+	 * This method returns the responceContent
+	 * 
+	 * @return responseContent
+	 */
+	public StringBuffer getResponseContent() {
+		// TODO Auto-generated method stub
+		return responseContent;
+	}
+
+	/**
+	 * This method sets the url with the correct albumID
 	 * 
 	 * @param albumNum
 	 * @return urlTemp the temporary URL to return
@@ -37,42 +75,70 @@ public class ConsoleApp {
 	public void setUrl(int albumNum) {
 
 		try {
-			if(albumNum >=1 && albumNum <= 10) {
+			if (albumNum >= 1 && albumNum <= 10) {
 				url = new URL("https://jsonplaceholder.typicode.com/photos?albumId=" + albumNum);
-				
-			}else {
+
+			} else {
 				throw new OutOfBoundsException("Incorrect input, enter a number between 1-10");
 			}
-			
+
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		catch(OutOfBoundsException e) {
-//			e.printStackTrace();
-			
+		} catch (OutOfBoundsException e) {
+			e.printStackTrace();
+
 		}
 
 	}
 
-	public URL getUrl() {
-		return url;
+	/**
+	 * This method sets the connection
+	 * 
+	 * @param connection the connection to set
+	 */
+	public void setConnection(HttpURLConnection connection) {
+		this.connection = connection;
 	}
-	
+
+	/**
+	 * This method sets the reader
+	 * 
+	 * @param reader the reader to set
+	 */
+	public void setReader(BufferedReader reader) {
+		this.reader = reader;
+	}
+
+	/**
+	 * This method sets the response content
+	 * 
+	 * @param responseContent the responseContent to set
+	 */
+	public void setResponseContent(StringBuffer responseContent) {
+		this.responseContent = responseContent;
+	}
+
+	/**
+	 * This method sets the request method, connection timeout and the read timeout
+	 * 
+	 * @throws ProtocolException
+	 */
 	public void configConnection() throws ProtocolException {
 		connection.setRequestMethod("GET");
 		connection.setConnectTimeout(5000);
 		connection.setReadTimeout(5000);
-		
+
 	}
 
+	/**
+	 * This method creates the StringBuffer
+	 */
 	public void createBuffer() {
 
 		String line;
 		StringBuffer rc = new StringBuffer();
 		// Get request
 		try {
-			
 
 			// User a reader to append the information to the responseConent
 			int status = connection.getResponseCode();
@@ -98,34 +164,6 @@ public class ConsoleApp {
 		}
 
 		setResponseContent(rc);
-	}
-
-	/**
-	 * @param connection the connection to set
-	 */
-	public void setConnection(HttpURLConnection connection) {
-		this.connection = connection;
-	}
-
-	/**
-	 * @return the reader
-	 */
-	public BufferedReader getReader() {
-		return reader;
-	}
-
-	/**
-	 * @param reader the reader to set
-	 */
-	public void setReader(BufferedReader reader) {
-		this.reader = reader;
-	}
-
-	/**
-	 * @param responseContent the responseContent to set
-	 */
-	public void setResponseContent(StringBuffer responseContent) {
-		this.responseContent = responseContent;
 	}
 
 	/**
@@ -189,16 +227,6 @@ public class ConsoleApp {
 			System.out.println();
 		}
 
-	}
-
-	public URLConnection getConnection() {
-		// TODO Auto-generated method stub
-		return connection;
-	}
-
-	public StringBuffer getResponseContent() {
-		// TODO Auto-generated method stub
-		return responseContent;
 	}
 
 }
